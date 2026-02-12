@@ -1,0 +1,3 @@
+-- Sample data for NFL database
+-- Insert all conferencedivision data (8 rows)
+-- Insert team data for AFC North (4 rows)
