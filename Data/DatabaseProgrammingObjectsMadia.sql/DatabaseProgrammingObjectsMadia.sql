@@ -34,7 +34,7 @@ create or alter procedure procGetTeamsByConferenceDivision
 AS
 begin
 select TeamName, TeamColors, Conference, Division
-from Team as
+from Team as t
 inner join ConferenceDivision as cd on t.ConferenceDivisionID = cd.ConferenceDivisionID
 where (@ConferenceName is null or Conference = @ConferenceName)
 and (@DivisionName is null or Division = @DivisionName);
