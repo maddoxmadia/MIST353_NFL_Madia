@@ -1,7 +1,7 @@
 --3 queries
 --1 each for ConferenceDivision, Team, and 1 join query
 
-use MIST353_NFL_RDB_Madia;
+--use MIST353_NFL_RDB_Madia;
 GO
 
 -- Query 1: Get all Conference/Division combinations
