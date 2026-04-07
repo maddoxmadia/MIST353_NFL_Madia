@@ -2,7 +2,9 @@ import streamlit as st
 from fetch_data import fetch_data
 
 def get_teams_in_same_conference_division_as_specified_team_ui():
+
     st.subheader("Get Teams in Same Conference and Division as Specified Team")
+    
     team = st.text_input("Enter team name:")
     
     if st.button("Fetch Teams"):
