@@ -75,20 +75,25 @@ GO
 
 GO
 
+GO
+
 create or alter procedure procGetTeamsForSpecifiedFan
 (
     @NFLFanID INT
 )
 AS
 BEGIN
-    select T.TeamName, CD.Conference, CD.Division, T.TeamColors
+    select T.TeamName, CD.Conference, CD.Division
     from NFLFan F
+        inner join FanTeam FT
+        on F.NFLFanID = FT.NFLFanID
         inner join Team T
-        on F.NFLFanID = T.TeamID
+        on FT.TeamID = T.TeamID
         inner join ConferenceDivision CD
         on T.ConferenceDivisionID = CD.ConferenceDivisionID
     where F.NFLFanID = @NFLFanID;
 end;
+GO
 
 -- execute procGetTeamsForSpecifiedFan @NFLFanID = 1;
 -- execute procGetTeamsForSpecifiedFan @NFLFanID = 2;
