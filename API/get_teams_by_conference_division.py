@@ -1,4 +1,5 @@
 from get_db_connection import get_db_connection
+import pymssql
 
 def get_teams_by_conference_division(
     conference: str = None,
@@ -6,18 +7,19 @@ def get_teams_by_conference_division(
 ):
     #with get_db_connection() as conn:
     conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("{call procGetTeamsByConferenceDivision(?, ?)}", (conference, division))
+    cursor = conn.cursor(as_dict=True)
+    #cursor.execute("{call procGetTeamsByConferenceDivision(?, ?)}", (conference, division))
+    cursor.callproc("procGetTeamsByConferenceDivision", (conference, division))
     rows = cursor.fetchall()
     conn.close()
-    
-    #Convert pyodbc.Row objects to dicts
+
+    #Convert pymssql.Row objects to dicts
     results = [
         {
-            "TeamName": row.TeamName,
-            "Conference": row.Conference,
-            "Division": row.Division,
-            "TeamColors": row.TeamColors
+            "TeamName": row["TeamName"],
+            "Conference": row["Conference"],
+            "Division": row["Division"],
+            "TeamColors": row["TeamColors"]
         }
         for row in rows
     ]

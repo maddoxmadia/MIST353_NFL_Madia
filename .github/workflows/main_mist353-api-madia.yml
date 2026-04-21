@@ -8,12 +8,15 @@ on:
   push:
     branches:
       - main
+    paths:
+    - 'API/**'
+    - 'requirements.txt'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
+    permissions: 
       contents: read #This is required for actions/checkout
 
     steps:
