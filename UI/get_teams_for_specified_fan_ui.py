@@ -5,8 +5,8 @@ def get_teams_for_specified_fan_ui():
     st.header("Fan's Favorite Teams")
 
     input_parameters = {}
-    fan_id = st.text_input("Fan ID", value=st.session_state.app_user_id, disabled=True)
-    input_parameters["nfl_fan_id"] = fan_id
+    fan_id = st.text_input("Fan ID", value=str(st.session_state.app_user_id), disabled=True)
+    input_parameters["nfl_fan_id"] = int(fan_id) if fan_id else None
 
     df = fetch_data("get_teams_for_specified_fan/", input_parameters)
 
