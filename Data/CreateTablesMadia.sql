@@ -42,15 +42,15 @@ GO
 -- Create tables for second iteration
 create table AppUser(
     AppUserID INT identity(1,1)
-        constraint PK_AppUser PRIMARY KEY,
+    constraint PK_AppUser PRIMARY KEY,
     FirstName NVARCHAR(50) NOT NULL,
     LastName NVARCHAR(50) NOT NULL,
     Email NVARCHAR(100) NOT NULL
-        constraint UK_AppUserEmail UNIQUE,
+    constraint UK_AppUserEmail UNIQUE,
     PasswordHash VARBINARY(200) NOT NULL,
-    Phone NVARCHAR(20) NOT NULL,
+    PhoneNumber NVARCHAR(20) NOT NULL,
     UserRole NVARCHAR(50) NOT NULL
-        constraint CK_AppUserRole CHECK (UserRole IN (N'NFLAdmin', N'NFLUser'))
+    constraint CK_AppUserRole CHECK (UserRole IN (N'NFLAdmin', N'NFLFan'))
 );
 
 go

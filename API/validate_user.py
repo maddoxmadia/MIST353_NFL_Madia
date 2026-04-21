@@ -9,18 +9,17 @@ def validate_user(
     conn = get_db_connection()
     cursor = conn.cursor(as_dict=True)
     #cursor.execute("{call procValidateUser(?, ?)}", (email, password_hash))
-    cursor.callproc("procValidateUser", (email, password_hash))
+    #cursor.callproc("procValidateUser", (email, password_hash))
+    cursor.execute("exec procValidateUser %s, %s", (email, password_hash))
     rows = cursor.fetchall()
     conn.close()
-
     #Convert pymssql.Row objects to dicts
     results = [
         {
-           "AppUserID": row["AppUserID"],
-           "FullName": row["FullName"],
-           "UserRole": row["UserRole"]
+            "AppUserID": row["AppUserID"],
+            "Fullname": row["Fullname"],
+            "UserRole": row["UserRole"]
         }
         for row in rows
     ]
-    
     return {"data": results}
