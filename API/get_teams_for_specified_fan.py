@@ -2,11 +2,11 @@ from get_db_connection import get_db_connection
 import pymssql
 
 def get_teams_for_specified_fan(
-    fan_id: int
+    nfl_fan_id: int
 ):
     conn = get_db_connection()
     cursor = conn.cursor(as_dict=True)
-    cursor.execute("exec procGetTeamsByFanID %s", (fan_id,))
+    cursor.execute("exec procGetTeamsByFanID %s", (nfl_fan_id,))
     rows = cursor.fetchall()
     conn.close()
     results = [
