@@ -1,7 +1,7 @@
 import streamlit as st
 from fetch_data import fetch_data
 
-def get_teams_by_fan_id_ui():
+def get_teams_for_specified_fan_ui():
     st.header("Fan's Favorite Teams")
 
     input_parameters = {}
