@@ -66,7 +66,7 @@ AS
 BEGIN
     select AppUserID, Firstname + ' ' + Lastname as Fullname, UserRole
     from AppUser
-    where Email = @Email and 
+    where Email = @Email and
         PasswordHash = Convert(VARBINARY(200), @PasswordHash, 1);
 END
 -- execute procValidateUser @Email = 'tom.brady@example.com', @PasswordHash = '0x01';
@@ -82,4 +82,29 @@ GO
 --     select T.TeamName, CD.Conference, CD.Division, T.TeamColors
 --     from NFLFan F
 --         inner join Team T
---         on F.NFLFanID = T.
+--         on F.NFLFanID = T.TeamID
+--         inner join ConferenceDivision CD
+--         on T.ConferenceDivisionID = CD.ConferenceDivisionID
+--     where F.NFLFanID = @NFLFanID;
+-- end;
+-- execute procGetTeamsForSpecifiedFan @NFLFanID = 1;
+-- execute procGetTeamsForSpecifiedFan @NFLFanID = 2;
+GO
+
+create or alter procedure procGetTeamsByFanID
+(
+    @FanID INT
+)
+AS
+BEGIN
+    select T.TeamName, CD.Conference, CD.Division, T.TeamColors, FT.PrimaryTeam
+    from FanTeam FT inner join Team T
+        on FT.TeamID = T.TeamID
+        inner join ConferenceDivision CD
+        on T.ConferenceDivisionID = CD.ConferenceDivisionID
+    where FT.NFLFanID = @FanID;
+END
+-- execute procGetTeamsByFanID @FanID = 1;
+-- execute procGetTeamsByFanID @FanID = 2;
+-- execute procGetTeamsByFanID @FanID = 3;
+GO
