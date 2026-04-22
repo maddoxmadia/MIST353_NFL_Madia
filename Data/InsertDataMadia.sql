@@ -1,59 +1,63 @@
--- Sample data for NFL database
--- Insert all conferencedivision data (8 rows)
--- Insert team data for AFC North (4 rows) steelers, browns, ravens, bengals
---Insert team data for the other 28 teams (Texans, Bills, Dolphins, Patriots, Titans, Jaguars, Chargers, Broncos, Chiefs, Raiders, Cowboys, Giants, Eagles, Washington, Bears, Lions, Packers, Vikings, Falcons, Panthers, Saints, Buccaneers)
-
-
+go
 
 insert into ConferenceDivision (Conference, Division)
-values
-('AFC', 'North'),
-('AFC', 'South'),
-('AFC', 'East'),
-('AFC', 'West'),
-('NFC', 'North'),
-('NFC', 'South'),
-('NFC', 'East'),
-('NFC', 'West');
+values ('AFC', 'North'),
+       ('AFC', 'South'),
+       ('AFC', 'East'),
+       ('AFC', 'West'),
+       ('NFC', 'North'),
+       ('NFC', 'South'),
+       ('NFC', 'East'),
+       ('NFC', 'West');
 
-
-select * from ConferenceDivision;
+GO
+--select * from ConferenceDivision order by ConferenceDivisionID;
 
 GO
 insert into Team (TeamName, TeamCityState, TeamColors, ConferenceDivisionID)
-values
-('Pittsburgh Steelers', 'Pittsburgh, PA', 'Black and Gold', 1),
-('Cleveland Browns', 'Cleveland, OH', 'Brown and Orange', 1),
-('Baltimore Ravens', 'Baltimore, MD', 'Purple and Black', 1),
-('Cincinnati Bengals', 'Cincinnati, OH', 'Black and Orange', 1),
-('Houston Texans', 'Houston, TX', 'Deep Steel Blue and Battle Red', 2),
-('Tennessee Titans', 'Nashville, TN', 'Navy, Titan Blue, and Red', 2),
-('Jacksonville Jaguars', 'Jacksonville, FL', 'Black, Teal, and Gold', 2),
-('Indianapolis Colts', 'Indianapolis, IN', 'Royal Blue and White', 2),
-('Buffalo Bills', 'Buffalo, NY', 'Royal Blue and Red', 3),
-('Miami Dolphins', 'Miami, FL', 'Aqua and Orange', 3),
-('New England Patriots', 'Foxborough, MA', 'Navy, Red, and Silver', 3),
-('New York Jets', 'East Rutherford, NJ', 'Green and White', 3),
-('Los Angeles Chargers', 'Los Angeles, CA', 'Powder Blue and Gold', 4),
-('Denver Broncos', 'Denver, CO', 'Orange and Navy', 4),
-('Kansas City Chiefs', 'Kansas City, MO', 'Red, Gold, and White', 4),
+VALUES
+('Baltimore Ravens', 'Baltimore, MD', 'Purple, Black, Metallic Gold', 1),
+('Cincinnati Bengals', 'Cincinnati, OH', 'Black, Orange, White', 1),
+('Cleveland Browns', 'Cleveland, OH', 'Brown, Orange, White', 1),
+('Pittsburgh Steelers', 'Pittsburgh, PA', 'Black, Gold, White', 1),
+
+('Houston Texans', 'Houston, TX', 'Deep Steel Blue, Battle Red, Liberty White', 2),
+('Indianapolis Colts', 'Indianapolis, IN', 'Speed Blue, White', 2),
+('Jacksonville Jaguars', 'Jacksonville, FL', 'Teal, Black, Gold, White', 2),
+('Tennessee Titans', 'Nashville, TN', 'Titans Navy, Titans Blue, Red, Silver', 2),
+
+('Buffalo Bills', 'Buffalo, NY', 'Royal Blue, Red, White', 3),
+('Miami Dolphins', 'Miami, FL', 'Aqua Green, Orange, White', 3),
+('New England Patriots', 'Foxborough, MA', 'Navy Blue, Red, Silver, White', 3),
+('New York Jets', 'East Rutherford, NJ', 'Gotham Green, Spotlight White, Stealth Black', 3),
+
+('Denver Broncos', 'Denver, CO', 'Broncos Orange, Navy Blue, White', 4),
+('Kansas City Chiefs', 'Kansas City, MO', 'Red, Gold, White', 4),
 ('Las Vegas Raiders', 'Las Vegas, NV', 'Silver and Black', 4),
-('Dallas Cowboys', 'Arlington, TX', 'Navy, Silver, and White', 7),
-('New York Giants', 'East Rutherford, NJ', 'Blue, Red, and White', 7),
-('Philadelphia Eagles', 'Philadelphia, PA', 'Midnight Green and Silver', 7),
-('Washington Commanders', 'Landover, MD', 'Burgundy and Gold', 7),
-('Chicago Bears', 'Chicago, IL', 'Navy Blue and Orange', 5),
-('Detroit Lions', 'Detroit, MI', 'Honolulu Blue and Silver', 5),
-('Green Bay Packers', 'Green Bay, WI', 'Green and Gold', 5),
-('Minnesota Vikings', 'Minneapolis, MN', 'Purple and Gold', 5),
-('Atlanta Falcons', 'Atlanta, GA', 'Red and Black', 6),
-('Carolina Panthers', 'Charlotte, NC', 'Black, Blue, and Silver', 6),
-('New Orleans Saints', 'New Orleans, LA', 'Black and Gold', 6),
-('Tampa Bay Buccaneers', 'Tampa, FL', 'Red, Pewter, and Black', 6),
-('Seattle Seahawks', 'Seattle, WA', 'Navy, Action Green, and Grey', 8),
-('San Francisco 49ers', 'Santa Clara, CA', 'Red and Gold', 8),
-('Los Angeles Rams', 'Los Angeles, CA', 'Royal Blue and Gold', 8),
-('Arizona Cardinals', 'Glendale, AZ', 'Cardinal Red, Black, and White', 8);
+('Los Angeles Chargers', 'Los Angeles, CA', 'Powder Blue, Sunshine Gold, White', 4),
+
+('Chicago Bears', 'Chicago, IL', 'Navy Blue, Orange, White', 5),
+('Detroit Lions', 'Detroit, MI', 'Honolulu Blue, Silver, White', 5),
+('Green Bay Packers', 'Green Bay, WI', 'Dark Green, Gold, White', 5),
+('Minnesota Vikings', 'Minneapolis, MN', 'Purple, Gold, White', 5),
+
+('Atlanta Falcons', 'Atlanta, GA', 'Red, Black, Silver, White', 6),
+('Carolina Panthers', 'Charlotte, NC', 'Black, Panther Blue, Silver, White', 6),
+('New Orleans Saints', 'New Orleans, LA', 'Old Gold, Black, White', 6),
+('Tampa Bay Buccaneers', 'Tampa Bay, FL', 'Red, Pewter, Black, Orange, White', 6),
+
+('Dallas Cowboys', 'Dallas, TX', 'Navy Blue, Metallic Silver, White', 7),
+('New York Giants', 'East Rutherford, NJ', 'Royal Blue, Red, White', 7),
+('Philadelphia Eagles', 'Philadelphia, PA', 'Midnight Green, Silver Metallic, Black Metallic, White', 7),
+('Washington Commanders', 'Washington D.C.', 'Burgundy, Gold', 7),
+
+('Arizona Cardinals', 'Phoenix, AZ', 'Red, Black, White', 8),
+('Los Angeles Rams', 'Los Angeles, CA', 'Royal Blue, Silver, Gold', 8),
+('San Francisco 49ers', 'San Francisco, CA', 'Scarlet, Gold', 8),
+('Seattle Seahawks', 'Seattle, WA', 'College Navy, Action Green', 8);
+
+-- select * from Team order by TeamID;
+
 GO
 
 insert into AppUser (Firstname, Lastname, Email, PhoneNumber, PasswordHash, UserRole)
@@ -62,33 +66,145 @@ VALUES
 ('Aaron', 'Rodgers', 'aaron.rodgers@example.com', '555-9012', 0x01, N'NFLFan'),
 ('Drew', 'Brees', 'drew.brees@example.com', '555-2222', 0x01, N'NFLFan'),
 ('Patrick', 'Mahomes', 'patrick.mahomes@example.com', '555-7890', 0x01, N'NFLFan'),
+
 ('Bill', 'Belichick', 'bill.belichick@example.com', '555-5678', 0x01, N'NFLAdmin'),
 ('Sean', 'McVay', 'sean.mcay@example.com', '555-3456', 0x01, N'NFLAdmin'),
 ('Mike', 'Tomlin', 'mike.tomlin@example.com', '555-1111', 0x01, N'NFLAdmin'),
 ('Andy', 'Reid', 'andy.reid@example.com', '555-3333', 0x01, N'NFLAdmin');
+
 GO
+
 insert into NFLFan (NFLFanID)
 VALUES
 (1),
 (2),
 (3),
 (4);
+
 GO
+
 insert into NFLAdmin (NFLAdminID)
 VALUES
 (5),
 (6),
 (7),
 (8);
+
 GO
---select * from Team;
+
 insert into FanTeam (NFLFanID, TeamID, PrimaryTeam)
 VALUES
 (1, 11, 1),
-(1, 24, 0), -- Tom Brady is a fan of New England Patriots and Tampa Bay Buccaneers, but Patriots is his primary team
+(1, 24, 0),
 (2, 19, 1),
 (2, 12, 0),
-(2, 4, 0),-- Aaron Rodgers is a fan of Green Bay Packers, New York Jets, and Pittsburgh Steelers, but Packers is his primary team
-(3, 3, 1), -- Drew Brees is a fan New Orleans Saints (primary) and Los Angeles Chargers
+(2, 4, 0),
+(3, 3, 1),
 (3, 16, 0),
-(4, 14, 1); -- Patrick Mahomes is a fan of Kansas City Chiefs (primary)
+(4, 14, 1);
+
+go
+
+INSERT INTO Stadium (StadiumName, StadiumCityState, Capacity) VALUES
+('M&T Bank Stadium', 'Baltimore, MD', 71008),
+('Paycor Stadium', 'Cincinnati, OH', 65515),
+('Huntington Bank Field', 'Cleveland, OH', 67431),
+('Acrisure Stadium', 'Pittsburgh, PA', 68400),
+('NRG Stadium', 'Houston, TX', 72220),
+('Lucas Oil Stadium', 'Indianapolis, IN', 67000),
+('EverBank Stadium', 'Jacksonville, FL', 62000),
+('Nissan Stadium', 'Nashville, TN', 69143),
+('Geodis Park', 'Nashville, TN', 30000),
+('Highmark Stadium', 'Orchard Park, NY', 71608),
+('Gillette Stadium', 'Foxborough, MA', 65878),
+('MetLife Stadium', 'East Rutherford, NJ', 82500),
+('Empower Field at Mile High', 'Denver, CO', 76125),
+('GEHA Field at Arrowhead Stadium', 'Kansas City, MO', 76416),
+('Allegiant Stadium', 'Las Vegas, NV', 65000),
+('SoFi Stadium', 'Inglewood, CA', 70240),
+('Soldier Field', 'Chicago, IL', 61500),
+('Ford Field', 'Detroit, MI', 65000),
+('Lambeau Field', 'Green Bay, WI', 81441),
+('U.S. Bank Stadium', 'Minneapolis, MN', 66860),
+('Mercedes-Benz Stadium', 'Atlanta, GA', 71000),
+('Bank of America Stadium', 'Charlotte, NC', 74867),
+('Caesars Superdome', 'New Orleans, LA', 73208),
+('Raymond James Stadium', 'Tampa, FL', 69218),
+('AT&T Stadium', 'Arlington, TX', 80000),
+('Lincoln Financial Field', 'Philadelphia, PA', 69796),
+('Northwest Stadium', 'Landover, MD', 67617),
+('State Farm Stadium', 'Glendale, AZ', 63400),
+('Levi''s Stadium', 'Santa Clara, CA', 68500),
+('Lumen Field', 'Seattle, WA', 69000),
+('Oakland Coliseum', 'Oakland, CA', 56057),
+('Jack Murphy/Qualcomm Stadium', 'San Diego, CA', 70561),
+('Hard Rock Stadium', 'Miami Gardens, FL', 65300);
+
+-- select * from Stadium order by StadiumID;
+
+go
+
+INSERT INTO TeamStadium (TeamID, StadiumID, StartYear, EndYear)
+VALUES
+(1, 1, 1998, NULL),
+(2, 2, 2000, NULL),
+(3, 3, 1999, NULL),
+(4, 4, 2001, NULL),
+(5, 5, 2002, NULL),
+(6, 6, 2008, NULL),
+(7, 7, 1995, NULL),
+(8, 8, 1999, 2026),
+(8, 9, 2027, NULL),
+(9, 10, 2026, NULL),
+(11, 11, 2002, NULL),
+(12, 12, 2010, NULL),
+(13, 13, 2001, NULL),
+(14, 14, 1972, NULL),
+(15, 15, 2020, NULL),
+(15, 31, 1966, 2019),
+(16, 16, 2020, NULL),
+(16, 32, 1967, 2016),
+(17, 17, 1971, NULL),
+(18, 18, 2002, NULL),
+(19, 19, 1957, NULL),
+(20, 20, 2016, NULL),
+(21, 21, 2017, NULL),
+(22, 22, 1996, NULL),
+(23, 23, 1975, NULL),
+(24, 24, 1998, NULL),
+(25, 25, 2009, NULL),
+(26, 12, 2010, NULL),
+(27, 26, 2003, NULL),
+(28, 27, 1997, NULL),
+(29, 28, 2006, NULL),
+(30, 16, 2020, NULL),
+(31, 29, 2014, NULL),
+(32, 30, 2002, NULL),
+(10, 33, 1987, NULL);
+
+GO
+
+-- select * from AdminChangesTracker
+-- select * from Game
+-- select N.NFLAdminID, U.Firstname, U.LastName from NFLAdmin N inner join APPUser U on N.NFLAdminID = U.AppUserID
+
+/*
+-- =============================================
+-- WILD CARD ROUND  (January 10-12, 2026)
+-- =============================================
+
+-- Saturday Jan 10: (5) LA Rams at (4) Carolina Panthers
+-- Rams win 34-31
+GameRound: 'Wild Card', HomeTeamID: 22, AwayTeamID: 30, GameDate: '2026-01-10', GameStartTime: '16:30', StadiumID: 22,
+NFLAdminID for scheduling: 5 (Bill Belichick)
+
+HomeTeamScore: 31, AwayTeamScore: 34, NFLAdminID for entering score: 6 (Sean McVay)
+
+-- Saturday Jan 10: (7) Green Bay Packers at (2) Chicago Bears
+-- Bears win 31-27
+GameRound: 'Wild Card', HomeTeamID: 17, AwayTeamID: 19, GameDate: '2026-01-10', GameStartTime: '20:00', StadiumID: 17,
+NFLAdminID for scheduling: 6 (Sean McVay)
+
+HomeTeamScore: 31, AwayTeamScore: 27, NFLAdminID for entering score: 7 (Mike Tomlin)
+
+*/

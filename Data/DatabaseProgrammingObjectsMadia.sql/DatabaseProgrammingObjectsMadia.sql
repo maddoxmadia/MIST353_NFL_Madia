@@ -106,5 +106,89 @@ BEGIN
 END
 -- execute procGetTeamsByFanID @FanID = 1;
 -- execute procGetTeamsByFanID @FanID = 2;
--- execute procGetTeamsByFanID @FanID = 3;
+
 GO
+
+create or alter procedure procScheduleGame
+(
+    @GameRound NVARCHAR(50),
+    @HomeTeamID INT,
+    @AwayTeamID INT,
+    @GameDate DATE,
+    @GameStartTime TIME,
+    @StadiumID INT,
+    @NFLAdminID INT --the logged-in admin who is scheduling the game
+)
+AS
+BEGIN
+    -- Store the NFL Admin ID in context so that the trigger can access it
+    declare @context VARBINARY(128) = cast(@NFLAdminID as VARBINARY(128));
+    SET context_info @context;
+
+    insert into Game (HomeTeamID, AwayTeamID, GameRound, GameDate, GameStartTime, StadiumID)
+values (@HomeTeamID, @AwayTeamID, @GameRound, @GameDate, @GameStartTime, @StadiumID);
+
+END
+/*
+GameRound: 'Wild Card', HomeTeamID: 22, AwayTeamID: 30, GameDate: '2026-01-10', GameStartTime: '16:30', StadiumID: 22,
+NFLAdminID for scheduling: 5 (Bill Belichick)
+
+execute procScheduleGame
+    @HomeTeamID = 22,
+    @AwayTeamID = 30,
+    @GameRound = 'Wild Card',
+    @GameDate = '2026-01-10',
+    @GameStartTime = '16:30',
+    @StadiumID = 22,
+    @NFLAdminID = 5;
+
+    select * from Game order by GameID desc;
+    select * from AdminChangesTracker order by AdminChangesTrackerID desc;
+*/
+GO
+
+-- trigger to track changes made by NFL Admin to the Game table
+--1, triggering event is after insert, update, or delete on Game table
+--2, action: inserting a record into AdminChangesTracker with NFLAdminID, GameID, ChangeType, ChangeDescription
+
+
+create or alter trigger trgTrackChangesOnSchedulingGame
+on Game
+after insert
+as
+BEGIN
+    declare @NFLAdminID INT;
+    declare @GameID INT;
+    declare @ChangeType NVARCHAR(50);
+    declare @ChangeDescription NVARCHAR(500);
+    declare @GameRound NVARCHAR(50);
+    declare @GameDate DATE;
+    declare @GameStartTime TIME;
+    declare @HomeTeamID INT;
+    declare @AwayTeamID INT;
+    declare @HomeTeamName NVARCHAR(50);
+    declare @AwayTeamName NVARCHAR(50);
+    declare @StadiumID INT;
+    declare @StadiumName NVARCHAR(100);
+
+    -- get the NFLAdminID from context
+    set @NFLAdminID = convert(int, convert(binary(4), context_info()));
+
+    -- get the GameID of the newly inserted game
+    select @GameID = GameID, @GameRound = GameRound, @GameDate = GameDate, @GameStartTime = GameStartTime,
+        @HomeTeamID = HomeTeamID, @AwayTeamID = AwayTeamID, @StadiumID = StadiumID
+    from inserted;
+
+    select @HomeTeamName = TeamName from Team where TeamID = @HomeTeamID;
+    select @AwayTeamName = TeamName from Team where TeamID = @AwayTeamID;
+    select @StadiumName = StadiumName from Stadium where StadiumID = @StadiumID;
+
+    set @ChangeType = 'Insert';
+    set @ChangeDescription = 'Scheduled a new game with GameID ' + cast(@GameID as NVARCHAR(50))
+        + ': ' + @HomeTeamName + ' vs ' + @AwayTeamName + ' on ' + cast(@GameDate as NVARCHAR(50))
+        + ' at ' + cast(@GameStartTime as NVARCHAR(50)) + ' in stadium ' + @StadiumName
+        + '. Game round: ' + @GameRound;
+
+    insert into AdminChangesTracker (NFLAdminID, GameID, ChangeType, ChangeDescription)
+    values (@NFLAdminID, @GameID, @ChangeType, @ChangeDescription);
+END
