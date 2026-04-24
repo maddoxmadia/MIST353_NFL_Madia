@@ -142,6 +142,7 @@ execute procScheduleGame
     @StadiumID = 22,
     @NFLAdminID = 5;
 
+    delete from Game where GameID = 12;
     select * from Game order by GameID desc;
     select * from AdminChangesTracker order by AdminChangesTrackerID desc;
 */
