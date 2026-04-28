@@ -17,3 +17,13 @@ def fetch_data(endpoint: str, input_params: dict, method: str = "GET"):
             st.error(f"Error fetching data: {response.status_code}")
             return pd.DataFrame()
         return None
+
+
+def post_data(endpoint: str, input_params: dict, method: str = "POST")-> dict:
+    if method == "POST":
+        response = requests.post(f"{FASTAPI_URL}/{endpoint}", params=input_params)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            st.error(f"Error posting data: {response.status_code}")
+            return {"status_message": f"Error posting data: {response.status_code}"}
