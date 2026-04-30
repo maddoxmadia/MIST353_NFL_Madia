@@ -5,8 +5,8 @@ from validate_user import validate_user
 from get_teams_for_specified_fan import get_teams_for_specified_fan
 from get_all_stadiums import get_all_stadiums
 from get_all_teams import get_all_teams
-import pymssql
-from schedule_game import schedule_game 
+from schedule_game import schedule_game
+from get_all_changes_by_admin import get_all_changes_by_admin
 
 app = FastAPI()
 
@@ -49,10 +49,14 @@ def schedule_game_api(
         nfl_admin_id=nfl_admin_id
     )
 
-  @app.get("/get_all_stadiums/")
+@app.get("/get_all_stadiums/")
 def get_all_stadiums_api():
     return get_all_stadiums()
 
 @app.get("/get_all_teams/")
 def get_all_teams_api():
     return get_all_teams()
+
+@app.get("/get_all_changes_by_admin/")
+def get_all_changes_by_admin_api(nfl_admin_id: int):
+    return get_all_changes_by_admin(nfl_admin_id=nfl_admin_id)
