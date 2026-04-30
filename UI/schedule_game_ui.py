@@ -1,41 +1,26 @@
 import streamlit as st
-import fetch_data
-from API import schedule_game
-from datetime import datetime
-
+from fetch_data import post_data
 
 def schedule_game_ui():
-    print("Schedule a Game")
-    home_team_id = int(input("Enter Home Team ID: "))
-    away_team_id = int(input("Enter Away Team ID: "))
-    game_round = input("Enter Game Round (e.g., Regular Season, Playoffs): ")
-    game_date = input("Enter Game Date (YYYY-MM-DD): ")
-    game_time = input("Enter Game Time (HH:MM:SS): ")
-    stadium_id = int(input("Enter Stadium ID: "))
-    nfl_admin_id = int(input("Enter NFL Admin ID: "))
+    st.header("Schedule a Game")
 
-    # Convert data and time strings to appropriate formats
-    game_date = datetime.strptime(game_date, "%Y-%m-%d").date()
-    game_time = datetime.strptime(game_time, "%H:%M:%S").time()
+    home_team_id = st.number_input("Home Team ID", min_value=1, step=1)
+    away_team_id = st.number_input("Away Team ID", min_value=1, step=1)
+    game_round = st.selectbox("Game Round", ["Wild Card", "Divisional", "Conference", "Super Bowl"])
+    game_date = st.date_input("Game Date")
+    game_time = st.time_input("Game Start Time")
+    stadium_id = st.number_input("Stadium ID", min_value=1, step=1)
+    nfl_admin_id = st.number_input("NFL Admin ID", min_value=1, step=1)
 
     if st.button("Schedule Game"):
-        result = fetch_data.schedule_game(
-            home_team_id=home_team_id,
-            away_team_id=away_team_id,
-            game_round=game_round,
-            game_date=game_date,
-            game_time=game_time,
-            stadium_id=stadium_id,
-            nfl_admin_id=nfl_admin_id
-        )
-        # Call the API function to schedule the game
-        schedule_game(
-            home_team_id,
-            away_team_id,
-            game_round,
-        game_date,
-        game_time,
-        stadium_id,
-        nfl_admin_id
-    )
-    print("Game scheduled successfully!")
+        input_params = {
+            "home_team_id": int(home_team_id),
+            "away_team_id": int(away_team_id),
+            "game_round": game_round,
+            "game_date": str(game_date),
+            "game_time": str(game_time),
+            "stadium_id": int(stadium_id),
+            "nfl_admin_id": int(nfl_admin_id)
+        }
+        result = post_data("schedule_game/", input_params)
+        st.success(result.get("status_message", "Done!"))
