@@ -15,7 +15,7 @@ def schedule_game(
     cursor = conn.cursor(as_dict=True)
     try:
         cursor.execute("exec procScheduleGame %s, %s, %s, %s, %s, %s, %s",
-                       (home_team_id, away_team_id, game_round, game_date, game_time, stadium_id, nfl_admin_id))
+                       (game_round, home_team_id, away_team_id, game_date, game_time, stadium_id, nfl_admin_id))
         conn.commit()
         return {"status_message": "Game scheduled successfully!"}
     except Exception as e:
