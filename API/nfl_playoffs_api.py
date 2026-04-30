@@ -29,19 +29,21 @@ def schedule_game_api(
     home_team_id: int,
     away_team_id: int,
     game_round: str,
-    game_date: date,
-    game_time: time,
+    game_date: str,
+    game_time: str,
     stadium_id: int,
     nfl_admin_id: int
 ):
+    from datetime import datetime
+    parsed_date = datetime.strptime(game_date, "%Y-%m-%d").date()
+    parsed_time = datetime.strptime(game_time, "%H:%M:%S").time()
     return schedule_game(
         home_team_id=home_team_id,
         away_team_id=away_team_id,
         game_round=game_round,
-        game_date=game_date,
-        game_time=game_time,
+        game_date=parsed_date,
+        game_time=parsed_time,
         stadium_id=stadium_id,
         nfl_admin_id=nfl_admin_id
     )
-
   

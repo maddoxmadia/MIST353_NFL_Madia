@@ -13,18 +13,17 @@ def schedule_game(
 ):
     conn = get_db_connection()
     cursor = conn.cursor(as_dict=True)
-
     try:
         cursor.execute("exec procScheduleGame %s, %s, %s, %s, %s, %s, %s",
                        (home_team_id, away_team_id, game_round, game_date, game_time, stadium_id, nfl_admin_id))
         conn.commit()
+        return {"status_message": "Game scheduled successfully!"}
     except Exception as e:
         conn.rollback()
-        if ("UNIQUE KEY constraint" in str(e)):
+        if "UNIQUE KEY constraint" in str(e):
             return {"status_message": "Game already scheduled for the specific date and time."}
         else:
-            print(f"Error scheduling game: {e}")
+            return {"status_message": f"Error scheduling game: {e}"}
     finally:
         cursor.close()
         conn.close()
-
