@@ -5,7 +5,7 @@ import os
 
 FASTAPI_URL = os.getenv("FASTAPI_URL", "http://localhost:8000")
 
-def fetch_data(endpoint: str, input_params: dict):
+def get_data(endpoint: str, input_params: dict):
     response = requests.get(f"{FASTAPI_URL}/{endpoint}", params=input_params)
     if response.status_code == 200:
         payload = response.json()
