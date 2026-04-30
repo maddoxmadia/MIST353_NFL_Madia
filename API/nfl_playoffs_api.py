@@ -3,6 +3,8 @@ from get_teams_by_conference_division import get_teams_by_conference_division
 from get_teams_in_same_conference_division_as_specified_team import get_teams_in_same_conference_division_as_specified_team
 from validate_user import validate_user
 from get_teams_for_specified_fan import get_teams_for_specified_fan
+from get_all_stadiums import get_all_stadiums
+from get_all_teams import get_all_teams
 import pymssql
 from schedule_game import schedule_game 
 
@@ -30,20 +32,27 @@ def schedule_game_api(
     away_team_id: int,
     game_round: str,
     game_date: str,
-    game_time: str,
+    game_start_time: str,
     stadium_id: int,
     nfl_admin_id: int
 ):
     from datetime import datetime
     parsed_date = datetime.strptime(game_date, "%Y-%m-%d").date()
-    parsed_time = datetime.strptime(game_time, "%H:%M:%S").time()
+    parsed_time = datetime.strptime(game_start_time, "%H:%M:%S").time()
     return schedule_game(
         home_team_id=home_team_id,
         away_team_id=away_team_id,
         game_round=game_round,
         game_date=parsed_date,
-        game_time=parsed_time,
+        game_start_time=parsed_time,
         stadium_id=stadium_id,
         nfl_admin_id=nfl_admin_id
     )
-  
+
+  @app.get("/get_all_stadiums/")
+def get_all_stadiums_api():
+    return get_all_stadiums()
+
+@app.get("/get_all_teams/")
+def get_all_teams_api():
+    return get_all_teams()
