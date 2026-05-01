@@ -4,8 +4,8 @@ from get_teams_in_same_conference_division_ui import get_teams_in_same_conferenc
 from validate_user_ui import validate_user_ui
 from get_teams_for_specified_fan_ui import get_teams_for_specified_fan_ui
 from schedule_game_ui import schedule_game_ui
+from get_all_changes_by_admin_ui import get_all_changes_by_admin_ui
 
-# Initialize session state
 if "app_user_id" not in st.session_state:
     st.session_state.app_user_id = ""
 if "app_user_fullname" not in st.session_state:
@@ -24,7 +24,8 @@ with st.sidebar:
         "Get Teams in Same Conference and Division as Specified Team",
         "Validate User",
         "Get Teams for Specified Fan",
-        "Schedule Game"]
+        "Schedule Game",
+        "Get All My Changes"]
     )
 
 if api_endpoint == "Get Teams by Conference and Division":
@@ -36,5 +37,11 @@ elif api_endpoint == "Validate User":
 elif api_endpoint == "Get Teams for Specified Fan":
     get_teams_for_specified_fan_ui()
 elif api_endpoint == "Schedule Game":
-    schedule_game_ui()
-
+    if not st.session_state.app_user_id:
+        st.warning("Please log in to access the Schedule Game functionality.")
+    elif st.session_state.app_user_role != "NFLAdmin":
+        st.warning("Only users with the NFL Admin role can access the Schedule Game functionality.")
+    else:
+        schedule_game_ui()
+elif api_endpoint == "Get All My Changes":
+    get_all_changes_by_admin_ui()
